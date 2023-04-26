@@ -49,9 +49,10 @@
     "scripts": {
         "lint": "pint -v",
         "refactor": "rector --debug",
-        "test:lint" : "pint --test -v",
+        "test:lint": "pint --test -v",
+        "test:refactor": "rector --dry-run",
         "test:types": "phpstan analyse --ansi",
-        "test:unit": "ptest --colors=always",
+        "test:unit": "pest --colors=always",
         "test": [
             "@test:lint",
             "@test:refactor",
