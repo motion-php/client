@@ -34,7 +34,10 @@
     "autoload-dev": {
         "psr-4": {
             "Tests\\": "tests/"
-        }
+        },
+        "files": [
+            "src/Motion.php"
+        ]
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
