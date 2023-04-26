@@ -1,7 +1,14 @@
 {
     "name": "motion-php/client",
     "description": "API client written in PHP for Motion",
+    "authors": [
+        {
+            "name": "Adam Paterson",
+            "email": "hello@adampaterson.co.uk"
+        }
+    ],
     "require": {
+        "php": "^8.1.0",
         "php-http/discovery": "1.x-dev",
         "psr/http-client": "1.0.x-dev",
         "psr/http-client-implementation": "*",
@@ -21,20 +28,35 @@
     "license": "MIT",
     "autoload": {
         "psr-4": {
-            "MotionPhp\\Client\\": "src/"
+            "Motion\\": "src/"
         }
     },
-    "authors": [
-        {
-            "name": "Adam Paterson",
-            "email": "hello@adampaterson.co.uk"
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
         }
-    ],
+    },
     "minimum-stability": "dev",
+    "prefer-stable": true,
     "config": {
+        "sort-packages": true,
+        "preferred-install": "dist",
         "allow-plugins": {
             "pestphp/pest-plugin": true,
             "php-http/discovery": true
         }
+    },
+    "scripts": {
+        "lint": "pint -v",
+        "refactor": "rector --debug",
+        "test:lint" : "pint --test -v",
+        "test:types": "phpstan analyse --ansi",
+        "test:unit": "ptest --colors=always",
+        "test": [
+            "@test:lint",
+            "@test:refactor",
+            "@test:types",
+            "@test:unit"
+        ]
     }
 }
