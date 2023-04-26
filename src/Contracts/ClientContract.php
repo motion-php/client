@@ -6,5 +6,4 @@ namespace Motion\Contracts;
 
 interface ClientContract
 {
-
 }

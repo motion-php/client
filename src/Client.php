@@ -8,5 +8,4 @@ use Motion\Contracts\ClientContract;
 
 final class Client implements ClientContract
 {
-
 }

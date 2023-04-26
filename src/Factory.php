@@ -6,12 +6,27 @@ namespace Motion;
 
 final class Factory
 {
-    private ?string $apiKey = null;
-
+    /**
+     * @return $this
+     */
     public function withApiKey(string $apiKey): self
     {
-        $this->apiKey = $apiKey;
+        return $this;
+    }
 
+    /**
+     * @return $this
+     */
+    public function withBaseUri(string $uri): self
+    {
+        return $this;
+    }
+
+    /**
+     * @return $this
+     */
+    public function withHttpHeader(string $name, string $value): self
+    {
         return $this;
     }
 
