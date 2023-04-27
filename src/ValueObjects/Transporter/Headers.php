@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Motion\ValueObjects\Transporter;
 
+use Motion\Enums\Transporter\ContentType;
 use Motion\ValueObjects\ApiKey;
 
 /**
@@ -43,11 +44,23 @@ final class Headers
      * Creates a new Headers value object with the given content type.
      * Retains any existing headers.
      */
-    public function withContentType(string $contentType): self
+    public function withContentType(ContentType $contentType): self
     {
         return new self([
             ...$this->headers,
-            'Content-Type' => $contentType,
+            'Content-Type' => $contentType->value,
+        ]);
+    }
+
+    /**
+     * Creates a new Headers value object with the given custom header.
+     * Retains any existing headers.
+     */
+    public function withCustomHeader(string $name, string $value): self
+    {
+        return new self([
+            ...$this->headers,
+            $name => $value,
         ]);
     }
 

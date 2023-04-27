@@ -1,5 +1,6 @@
 <?php
 
+use Motion\Enums\Transporter\ContentType;
 use Motion\ValueObjects\ApiKey;
 use Motion\ValueObjects\Transporter\Headers;
 
@@ -17,10 +18,20 @@ it('can be created from an API token', function () {
 
 it('can have content/type', function () {
     $headers = Headers::withAuthorization($this->apiKey)
-        ->withContentType('application/json');
+        ->withContentType(ContentType::JSON);
 
     expect($headers->toArray())->toBe([
         'X-API-Key' => 'foo',
         'Content-Type' => 'application/json',
+    ]);
+});
+
+it('can have custom headers', function () {
+    $headers = Headers::withAuthorization($this->apiKey)
+        ->withCustomHeader('foo', 'bar');
+
+    expect($headers->toArray())->toBe([
+        'X-API-Key' => 'foo',
+        'foo' => 'bar',
     ]);
 });
