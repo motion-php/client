@@ -1,6 +1,8 @@
 <?php
 
 use Motion\Client;
+use Motion\Contracts\TransporterContract;
+use Psr\Http\Client\ClientInterface;
 
 it('may set an api key', function () {
     $factory = Motion::factory()
@@ -22,4 +24,22 @@ it('may set custom headers', function () {
         ->make();
 
     expect($client)->toBeInstanceOf(Client::class);
+});
+
+it('may use a custom transporter', function () {
+    $transporter = Mockery::mock(TransporterContract::class);
+
+    $client = Motion::factory()
+        ->withTransporter($transporter)
+        ->make();
+
+    expect($client)->toBeInstanceOf(Client::class);
+});
+
+it('may use a custom http client', function () {
+    $client = Mockery::mock(ClientInterface::class);
+
+    $client = Motion::factory()
+        ->withHttpClient($client)
+        ->make();
 });
