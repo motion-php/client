@@ -42,4 +42,6 @@ it('may use a custom http client', function () {
     $client = Motion::factory()
         ->withHttpClient($client)
         ->make();
+
+    expect($client)->toBeInstanceOf(Client::class);
 });

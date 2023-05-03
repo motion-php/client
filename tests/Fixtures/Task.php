@@ -1,0 +1,61 @@
+<?php
+
+function taskOne()
+{
+    return [
+        'duration' => 'NONE',
+        'workspace' => workspaceOne(),
+        'id' => '1',
+        'name' => 'Task One',
+        'description' => 'This is the first task',
+        'dueDate' => '2019-08-24T14:15:22Z',
+        'deadlineType' => 'SOFT',
+        'parentRecurringTaskId' => '1',
+        'completed' => false,
+        'creator' => user1(),
+        'project' => projectOne(),
+        'status' => statusInProgress(),
+        'priority' => 'ASAP',
+        'labels' => [
+            labelOne(),
+            labelTwo(),
+        ],
+        'assignees' => [
+            user1(),
+            user2(),
+        ],
+        'scheduledStart' => '2019-08-24T14:15:22Z',
+        'scheduledEnd' => '2019-08-24T14:15:22Z',
+        'schedulingIssue' => false
+    ];
+}
+
+function taskTwo()
+{
+    return [
+        'duration' => 'NONE',
+        'workspace' => workspaceOne(),
+        'id' => '2',
+        'name' => 'Task Two',
+        'description' => 'This is the second task',
+        'dueDate' => '2019-08-24T14:15:22Z',
+        'deadlineType' => 'SOFT',
+        'parentRecurringTaskId' => '1',
+        'completed' => false,
+        'creator' => user1(),
+        'project' => projectOne(),
+        'status' => statusInProgress(),
+        'priority' => 'ASAP',
+        'labels' => [
+            labelOne(),
+            labelTwo(),
+        ],
+        'assignees' => [
+            user1(),
+            user2(),
+        ],
+        'scheduledStart' => '2019-08-24T14:15:22Z',
+        'scheduledEnd' => '2019-08-24T14:15:22Z',
+        'schedulingIssue' => false
+    ];
+}

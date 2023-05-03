@@ -12,7 +12,7 @@ final class Tasks implements TasksContract
 {
     use Transportable;
 
-    public function create()
+    public function create(): object
     {
         $payload = Payload::create('');
 
