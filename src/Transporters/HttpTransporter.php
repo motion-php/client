@@ -13,6 +13,7 @@ use Motion\Exceptions\UnserializableResponse;
 use Motion\ValueObjects\Transporter\BaseUri;
 use Motion\ValueObjects\Transporter\Headers;
 use Motion\ValueObjects\Transporter\Payload;
+use Motion\ValueObjects\Transporter\QueryParams;
 use Psr\Http\Client\ClientExceptionInterface;
 use Psr\Http\Client\ClientInterface;
 
@@ -21,14 +22,15 @@ final class HttpTransporter implements TransporterContract
     public function __construct(
         private readonly ClientInterface $client,
         private readonly BaseUri $baseUri,
-        private readonly Headers $headers
+        private readonly Headers $headers,
+        private readonly QueryParams $queryParams,
     ) {
         //..
     }
 
     public function requestObject(Payload $payload): array|string
     {
-        $request = $payload->toRequest($this->baseUri, $this->headers);
+        $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams);
 
         try {
             $response = $this->client->sendRequest($request);
@@ -36,7 +38,7 @@ final class HttpTransporter implements TransporterContract
             throw new TransporterException($clientException);
         }
 
-        $contents = (string) $response->getBody();
+        $contents = $response->getBody()->getContents();
 
         if ($response->getHeader('Content-Type')[0] === ContentType::TEXT->value.'; charset=UTF-8') {
             return $contents;

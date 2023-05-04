@@ -6,6 +6,7 @@ namespace Motion\Resources;
 
 use Motion\Contracts\Resources\TasksContract;
 use Motion\Resources\Concerns\Transportable;
+use Motion\Responses\Tasks\ListResponse;
 use Motion\ValueObjects\Transporter\Payload;
 
 final class Tasks implements TasksContract
@@ -17,5 +18,14 @@ final class Tasks implements TasksContract
         $payload = Payload::create('');
 
         return $this->transporter->requestObject($payload);
+    }
+
+    public function list(string $workspaceId)
+    {
+        $payload = Payload::list('tasks', ['workspace' => $workspaceId]);
+
+        $result = $this->transporter->requestObject($payload);
+
+        return ListResponse::from($result);
     }
 }

@@ -1,5 +1,16 @@
 <?php
 
+function taskListResource()
+{
+    return [
+        'tasks' => [
+            taskOne(),
+            taskTwo(),
+        ],
+        'meta' => metaOne(),
+    ];
+}
+
 function taskOne()
 {
     return [

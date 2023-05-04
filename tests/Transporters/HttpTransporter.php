@@ -4,7 +4,11 @@ use GuzzleHttp\Psr7\Response;
 use Motion\ValueObjects\ApiKey;
 use Motion\ValueObjects\Transporter\BaseUri;
 use Motion\ValueObjects\Transporter\Headers;
+use Motion\ValueObjects\Transporter\Payload;
+use Motion\ValueObjects\Transporter\QueryParams;
 use Psr\Http\Client\ClientInterface;
+use Psr\Http\Message\RequestInterface;
+use Psr\Http\Message\ResponseInterface;
 
 beforeEach(function () {
     $this->client = Mockery::mock(ClientInterface::class);
@@ -14,12 +18,14 @@ beforeEach(function () {
     $this->http = new \Motion\Transporters\HttpTransporter(
         $this->client,
         BaseUri::from('https://api.motion.dev'),
-        Headers::withAuthorization($apiKey)
+        Headers::withAuthorization($apiKey),
+        QueryParams::create(),
+        fn (RequestInterface $request): ResponseInterface => $this->client->sendAsyncRequest($request, ['stream' => true]),
     );
 });
 
 test('request object', function () {
-    $payload = \Motion\ValueObjects\Transporter\Payload::list('tasks');
+    $payload = Payload::list('tasks');
 
     $response = new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], json_encode([
         'qdwq',
@@ -39,7 +45,7 @@ test('request object', function () {
 });
 
 test('request object response', function () {
-    $payload = \Motion\ValueObjects\Transporter\Payload::list('tasks');
+    $payload = Payload::list('tasks');
 
     $response = new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], json_encode([
         'text' => 'foo',

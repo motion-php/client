@@ -35,7 +35,7 @@ final class RecurringTask implements CreateFromArrayContract
             project: Project::from($attributes['project']),
             status: Status::from($attributes['status']),
             priority: $attributes['priority'],
-            labels: array_map(fn (array $label): \Motion\ValueObjects\Responses\Label => Label::from($label), $attributes['labels']),
+            labels: array_map(fn (array $label): Label => Label::from($label), $attributes['labels']),
         );
     }
 

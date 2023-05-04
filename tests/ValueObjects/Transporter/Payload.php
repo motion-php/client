@@ -4,18 +4,19 @@ use Motion\ValueObjects\ApiKey;
 use Motion\ValueObjects\Transporter\BaseUri;
 use Motion\ValueObjects\Transporter\Headers;
 use Motion\ValueObjects\Transporter\Payload;
+use Motion\ValueObjects\Transporter\QueryParams;
 
 beforeEach(function () {
     $this->apiKey = ApiKey::from('foo');
     $this->headers = Headers::withAuthorization($this->apiKey);
+    $this->queryParams = QueryParams::create();
 });
 
 it('has a method', function () {
     $payload = Payload::create('tasks', []);
-
     $baseUri = BaseUri::from('https://api.motion.dev');
 
-    expect($payload->toRequest($baseUri, $this->headers)->getMethod())->toBe('POST');
+    expect($payload->toRequest($baseUri, $this->headers, $this->queryParams)->getMethod())->toBe('POST');
 });
 
 it('has a uri', function () {
@@ -23,7 +24,7 @@ it('has a uri', function () {
 
     $baseUri = BaseUri::from('https://api.motion.dev');
 
-    expect($payload->toRequest($baseUri, $this->headers)->getUri()->getPath())->toBe('/tasks');
+    expect($payload->toRequest($baseUri, $this->headers, $this->queryParams)->getUri()->getPath())->toBe('/tasks');
 });
 
 it('has headers', function () {
@@ -32,7 +33,7 @@ it('has headers', function () {
 
     $headers = $this->headers->withCustomHeader('foo', 'bar');
 
-    $request = $payload->toRequest($baseUri, $headers);
+    $request = $payload->toRequest($baseUri, $headers, $this->queryParams);
 
     expect($request->getHeaders())->toBe([
         'Host' => ['api.motion.dev'],

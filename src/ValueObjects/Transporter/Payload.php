@@ -8,6 +8,7 @@ use Http\Discovery\Psr17Factory;
 use Motion\Enums\Transporter\ContentType;
 use Motion\Enums\Transporter\Method;
 use Motion\ValueObjects\ResourceUri;
+use Psr\Http\Message\RequestInterface;
 
 /**
  * @internal
@@ -20,34 +21,38 @@ final class Payload
     public function __construct(
         private readonly ContentType $contentType,
         private readonly Method $method,
-        private readonly ResourceUri $uri
+        private readonly ResourceUri $uri,
     ) {
         //..
     }
 
-    public static function create(string $resource): self
+    public static function create(string $resource, array $parameters): self
     {
         $contentType = ContentType::JSON;
         $method = Method::POST;
         $uri = ResourceUri::create($resource);
 
-        return new self($contentType, $method, $uri);
+        return new self($contentType, $method, $uri, $parameters);
     }
 
-    public static function list(string $resource): self
+    public static function list(string $resource, array $parameters = []): self
     {
         $contentType = ContentType::JSON;
         $method = Method::GET;
         $uri = ResourceUri::list($resource);
 
-        return new self($contentType, $method, $uri);
+        return new self($contentType, $method, $uri, $parameters);
     }
 
-    public function toRequest(BaseUri $baseUri, Headers $headers): \Psr\Http\Message\RequestInterface
+    public function toRequest(BaseUri $baseUri, Headers $headers, QueryParams $queryParams): RequestInterface
     {
         $psr17Factory = new Psr17Factory();
 
         $uri = $baseUri->toString().$this->uri->toString();
+        if (! empty($queryParams->toArray())) {
+            $uri .= '?'.http_build_query($queryParams->toArray());
+        }
+
         $headers = $headers->withContentType($this->contentType);
 
         $request = $psr17Factory->createRequest($this->method->value, $uri);

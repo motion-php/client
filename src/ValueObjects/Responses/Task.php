@@ -4,9 +4,7 @@ declare(strict_types=1);
 
 namespace Motion\ValueObjects\Responses;
 
-use Motion\Contracts\CreateFromArrayContract;
-
-final class Task implements CreateFromArrayContract
+final class Task
 {
     public function __construct(
         public readonly string $duration,
@@ -33,8 +31,8 @@ final class Task implements CreateFromArrayContract
 
     public static function from(array $attributes): self
     {
-        $labels = array_map(fn (array $label): \Motion\ValueObjects\Responses\Label => Label::from($label), $attributes['labels']);
-        $assignees = array_map(fn (array $assignee): \Motion\ValueObjects\Responses\User => User::from($assignee), $attributes['assignees']);
+        $labels = array_map(fn (array $result): Label => Label::from($result), $attributes['labels']);
+        $assignees = array_map(fn (array $result): User => User::from($result), $attributes['assignees']);
 
         return new self(
             $attributes['duration'],
@@ -59,7 +57,7 @@ final class Task implements CreateFromArrayContract
     }
 
     /**
-     * @return array{duration: string, workspace: mixed[], id: string, name: string, description: string, dueDate: string, deadlineType: string, parentRecurringTaskId: string, completed: bool, creator: mixed[], project: mixed[], status: mixed[], priority: string, labels: mixed[][], assignees: mixed[][], scheduledStart: string, scheduledEnd: string, schedulingIssue: bool}
+     * @return array{duration: string, workspace: array{id: string, name: string, teamId: string, statuses: mixed[][], labels: mixed[][], type: string}, id: string, name: string, description: string, dueDate: string, deadlineType: string, parentRecurringTaskId: string, completed: bool, creator: array{id: string, name: string, email: string}, project: array{id: string, name: string, description: string, workspaceId: string}, status: array{name: string, isDefaultStatus: bool, isResolvedStatus: bool}, priority: string, labels: array<mixed, array{name: string}>, assignees: array<mixed, array{id: string, name: string, email: string}>, scheduledStart: string, scheduledEnd: string, schedulingIssue: bool}
      */
     public function toArray(): array
     {
@@ -78,7 +76,7 @@ final class Task implements CreateFromArrayContract
             'status' => $this->status->toArray(),
             'priority' => $this->priority,
             'labels' => array_map(fn (Label $label): array => $label->toArray(), $this->labels),
-            'assignees' => array_map(fn (User $assignee): array => $assignee->toArray(), $this->assignees),
+            'assignees' => array_map(fn (User $user): array => $user->toArray(), $this->assignees),
             'scheduledStart' => $this->scheduledStart,
             'scheduledEnd' => $this->scheduledEnd,
             'schedulingIssue' => $this->schedulingIssue,
