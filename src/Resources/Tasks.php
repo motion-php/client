@@ -20,7 +20,7 @@ final class Tasks implements TasksContract
         return $this->transporter->requestObject($payload);
     }
 
-    public function list(string $workspaceId)
+    public function list(string $workspaceId): ListResponse
     {
         $payload = Payload::list('tasks', ['workspace' => $workspaceId]);
 

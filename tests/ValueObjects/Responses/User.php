@@ -3,15 +3,15 @@
 use Motion\ValueObjects\Responses\User;
 
 it('may be created from array', function () {
-    $user = User::from(user1());
+    $user = User::from(userOne());
 
-    expect($user->id)->toBe(user1()['id']);
-    expect($user->name)->toBe(user1()['name']);
-    expect($user->email)->toBe(user1()['email']);
+    expect($user->id)->toBe(userOne()['id']);
+    expect($user->name)->toBe(userOne()['name']);
+    expect($user->email)->toBe(userOne()['email']);
 });
 
 it('may be converted to array', function () {
-    $user = User::from(user2());
+    $user = User::from(userTwo());
 
-    expect($user->toArray())->toBe(user2());
+    expect($user->toArray())->toBe(userTwo());
 });

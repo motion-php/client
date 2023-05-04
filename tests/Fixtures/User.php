@@ -1,6 +1,6 @@
 <?php
 
-function user1()
+function userOne()
 {
     return [
         'id' => '1',
@@ -9,11 +9,22 @@ function user1()
     ];
 }
 
-function user2()
+function userTwo()
 {
     return [
         'id' => '2',
         'name' => 'Jane Doe',
         'email' => 'hello@testing.co.uk',
+    ];
+}
+
+function listUsersResource()
+{
+    return [
+        'users' => [
+            userOne(),
+            userTwo(),
+        ],
+        'meta' => metaOne(),
     ];
 }

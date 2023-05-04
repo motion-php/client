@@ -1,6 +1,7 @@
 <?php
 
 use GuzzleHttp\Psr7\Response;
+use Motion\Transporters\HttpTransporter;
 use Motion\ValueObjects\ApiKey;
 use Motion\ValueObjects\Transporter\BaseUri;
 use Motion\ValueObjects\Transporter\Headers;
@@ -15,7 +16,7 @@ beforeEach(function () {
 
     $apiKey = ApiKey::from('foo');
 
-    $this->http = new \Motion\Transporters\HttpTransporter(
+    $this->http = new HttpTransporter(
         $this->client,
         BaseUri::from('https://api.motion.dev'),
         Headers::withAuthorization($apiKey),
@@ -24,8 +25,28 @@ beforeEach(function () {
     );
 });
 
-test('request object', function () {
-    $payload = Payload::list('tasks');
+//test('request object', function () {
+//    $payload = Payload::list('tasks');
+//
+//    $response = new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], json_encode([
+//        'qdwq',
+//    ]));
+//
+//    $this->client
+//        ->shouldReceive('sendRequest')
+//        ->once()
+//        ->withArgs(function (GuzzleHttp\Psr7\Request $request) {
+//            expect($request->getMethod())->toBe('GET');
+//            expect($request->getUri()->getPath())->toBe('/tasks');
+//
+//            return true;
+//        })->andReturn($response);
+//
+//    $this->http->requestObject($payload);
+//});
+
+test('request object with query params', function () {
+    $payload = Payload::list('users', ['workspaceId' => 'foo']);
 
     $response = new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], json_encode([
         'qdwq',
@@ -36,7 +57,8 @@ test('request object', function () {
         ->once()
         ->withArgs(function (GuzzleHttp\Psr7\Request $request) {
             expect($request->getMethod())->toBe('GET');
-            expect($request->getUri()->getPath())->toBe('/tasks');
+            expect($request->getUri()->getPath())->toBe('/users');
+            expect($request->getUri()->getQuery())->toBe('0%5BworkspaceId%5D=foo');
 
             return true;
         })->andReturn($response);

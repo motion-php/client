@@ -24,6 +24,14 @@ final class QueryParams
         ]);
     }
 
+    public function withParams(array $params): self
+    {
+        return new self([
+            ...$this->params,
+            array_merge($this->params, $params),
+        ]);
+    }
+
     public function toArray(): array
     {
         return $this->params;

@@ -22,6 +22,7 @@ final class Payload
         private readonly ContentType $contentType,
         private readonly Method $method,
         private readonly ResourceUri $uri,
+        private readonly array $parameters = [],
     ) {
         //..
     }
@@ -47,6 +48,10 @@ final class Payload
     public function toRequest(BaseUri $baseUri, Headers $headers, QueryParams $queryParams): RequestInterface
     {
         $psr17Factory = new Psr17Factory();
+
+        if ($this->method === Method::GET && $this->parameters !== []) {
+            $queryParams = $queryParams->withParams($this->parameters);
+        }
 
         $uri = $baseUri->toString().$this->uri->toString();
         if (! empty($queryParams->toArray())) {
