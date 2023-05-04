@@ -8,18 +8,17 @@ use Motion\Contracts\CreateFromArrayContract;
 
 final class RecurringTask implements CreateFromArrayContract
 {
-
     public function __construct(
         public readonly Workspace $workspace,
-        public readonly string    $id,
-        public readonly string    $name,
-        public readonly string    $description,
-        public readonly User      $creator,
-        public readonly User      $assignee,
-        public readonly Project   $project,
-        public readonly Status    $status,
-        public readonly string    $priority,
-        public readonly array     $labels,
+        public readonly string $id,
+        public readonly string $name,
+        public readonly string $description,
+        public readonly User $creator,
+        public readonly User $assignee,
+        public readonly Project $project,
+        public readonly Status $status,
+        public readonly string $priority,
+        public readonly array $labels,
     ) {
         //..
     }

@@ -8,25 +8,24 @@ use Motion\Contracts\CreateFromArrayContract;
 
 final class Task implements CreateFromArrayContract
 {
-
     public function __construct(
-        public readonly string    $duration,
+        public readonly string $duration,
         public readonly Workspace $workspace,
-        public readonly string  $id,
-        public readonly string  $name,
-        public readonly string  $description,
-        public readonly string  $dueDate,
-        public readonly string  $deadlineType,
-        public readonly string  $parentRecurringTaskId,
-        public readonly bool    $completed,
-        public readonly User    $creator,
+        public readonly string $id,
+        public readonly string $name,
+        public readonly string $description,
+        public readonly string $dueDate,
+        public readonly string $deadlineType,
+        public readonly string $parentRecurringTaskId,
+        public readonly bool $completed,
+        public readonly User $creator,
         public readonly Project $project,
-        public readonly Status  $status,
-        public readonly string  $priority,
-        public readonly array   $labels,
-        public readonly array   $assignees,
-        public readonly string  $scheduledStart,
-        public readonly string  $scheduledEnd,
+        public readonly Status $status,
+        public readonly string $priority,
+        public readonly array $labels,
+        public readonly array $assignees,
+        public readonly string $scheduledStart,
+        public readonly string $scheduledEnd,
         public readonly bool $schedulingIssue
     ) {
         //..

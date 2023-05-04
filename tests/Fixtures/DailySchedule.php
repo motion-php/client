@@ -8,6 +8,15 @@ function scheduleMonday()
     ];
 }
 
+function scheduleMondayMultiple()
+{
+    return [
+        scheduleMonday(),
+        scheduleMonday(),
+        scheduleMonday(),
+    ];
+}
+
 function scheduleTuesday()
 {
     return [
@@ -21,6 +30,15 @@ function scheduleWednesday()
     return [
         'start' => '09:00',
         'end' => '17:00',
+    ];
+}
+
+function scheduleWednesdayMultiple()
+{
+    return [
+        scheduleWednesday(),
+        scheduleWednesday(),
+        scheduleWednesday(),
     ];
 }
 

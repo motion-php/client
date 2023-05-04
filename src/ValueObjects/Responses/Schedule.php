@@ -10,6 +10,7 @@ final class Schedule implements CreateFromArrayContract
 {
     public function __construct(
         public readonly string $name,
+        public readonly bool $isDefaultTimezone,
         public readonly string $timezone,
         public readonly array $schedule,
     ) {
@@ -18,13 +19,15 @@ final class Schedule implements CreateFromArrayContract
 
     public static function from(array $attributes): self
     {
+        // @todo: map schedules with multiple DailySchedules per day
         $schedule = array_map(
-            fn (array $schedule): \Motion\ValueObjects\Responses\DailySchedule => DailySchedule::from($schedule),
+            fn (array $schedule): DailySchedule => DailySchedule::from($schedule),
             $attributes['schedule'],
         );
 
         return new self(
             name: $attributes['name'],
+            isDefaultTimezone: $attributes['isDefaultTimezone'],
             timezone: $attributes['timezone'],
             schedule: $schedule,
         );
@@ -37,8 +40,9 @@ final class Schedule implements CreateFromArrayContract
     {
         return [
             'name' => $this->name,
+            'isDefaultTimezone' => $this->isDefaultTimezone,
             'timezone' => $this->timezone,
-            'schedule' => $this->schedule,
+            'schedule' => array_map(fn (DailySchedule $schedule): array => $schedule->toArray(), $this->schedule),
         ];
     }
 }

@@ -15,6 +15,7 @@ final class AutoScheduledInfo implements CreateFromArrayContract
     ) {
         //..
     }
+
     public static function from(array $attributes): self
     {
         return new self(

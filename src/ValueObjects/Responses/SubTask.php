@@ -10,7 +10,7 @@ final class SubTask implements CreateFromArrayContract
 {
     public function __construct(
         public readonly string $name,
-        public readonly bool   $completed,
+        public readonly bool $completed,
     ) {
         //..
     }

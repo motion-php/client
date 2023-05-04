@@ -18,6 +18,7 @@ final class Workspace implements CreateFromArrayContract
     ) {
         //..
     }
+
     public static function from(array $attributes): self
     {
         $statuses = array_map(fn (array $status): \Motion\ValueObjects\Responses\Status => Status::from($status), $attributes['statuses']);

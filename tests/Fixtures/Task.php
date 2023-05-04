@@ -26,7 +26,7 @@ function taskOne()
         ],
         'scheduledStart' => '2019-08-24T14:15:22Z',
         'scheduledEnd' => '2019-08-24T14:15:22Z',
-        'schedulingIssue' => false
+        'schedulingIssue' => false,
     ];
 }
 
@@ -56,6 +56,6 @@ function taskTwo()
         ],
         'scheduledStart' => '2019-08-24T14:15:22Z',
         'scheduledEnd' => '2019-08-24T14:15:22Z',
-        'schedulingIssue' => false
+        'schedulingIssue' => false,
     ];
 }

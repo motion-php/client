@@ -8,7 +8,6 @@ use Motion\Contracts\CreateFromArrayContract;
 
 final class DailySchedule implements CreateFromArrayContract
 {
-
     public function __construct(
         public readonly string $start,
         public readonly string $end
