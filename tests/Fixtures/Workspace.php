@@ -1,16 +1,48 @@
 <?php
 
-use Motion\ValueObjects\Responses\Workspace;
+function workspaceOne()
+{
+    return [
+        'id' => '1',
+        'name' => 'Workspace One',
+        'teamId' => '1',
+        'statuses' => [
+            statusResolved(),
+            statusInProgress(),
+        ],
+        'labels' => [
+            labelOne(),
+            labelTwo(),
+        ],
+        'type' => 'INDIVIDUAL',
+    ];
+}
 
-it('may be created from array', function () {
-    $workspace = Workspace::from(workspaceOne());
+function workspaceTwo()
+{
+    return [
+        'id' => '2',
+        'name' => 'Workspace Two',
+        'teamId' => '1',
+        'statuses' => [
+            statusResolved(),
+            statusInProgress(),
+        ],
+        'labels' => [
+            labelOne(),
+            labelTwo(),
+        ],
+        'type' => 'INDIVIDUAL',
+    ];
+}
 
-    expect($workspace->id)->toBe(workspaceOne()['id']);
-    expect($workspace->name)->toBe(workspaceOne()['name']);
-});
-
-it('may be converted to array', function () {
-    $workspace = Workspace::from(workspaceTwo());
-
-    expect($workspace->toArray())->toBe(workspaceTwo());
-});
+function listWorkspacesResource()
+{
+    return [
+        'workspaces' => [
+            workspaceOne(),
+            workspaceTwo(),
+        ],
+        'meta' => metaOne(),
+    ];
+}
