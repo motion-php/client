@@ -101,6 +101,8 @@ final class Factory
         $queryParams = QueryParams::create();
         $client = $this->httpClient ??= Psr18ClientDiscovery::find();
 
+        $this->headers = [...$this->headers, 'User-Agent' => 'Motion PHP API Client v'.Client::VERSION];
+
         if ($this->apiKey !== null) {
             $headers = $headers->withAuthorization(ApiKey::from($this->apiKey));
         }

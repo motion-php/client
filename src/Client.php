@@ -15,6 +15,8 @@ use Motion\Resources\Workspaces;
 
 final class Client implements ClientContract
 {
+    public const VERSION = '0.1.0';
+
     public function __construct(private readonly TransporterContract $transporter)
     {
         //..

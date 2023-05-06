@@ -7,24 +7,24 @@ namespace Motion\ValueObjects\Responses;
 final class Task
 {
     public function __construct(
-        public readonly string $duration,
+        public readonly int|string $duration,
         public readonly Workspace $workspace,
         public readonly string $id,
         public readonly string $name,
-        public readonly string $description,
         public readonly string $dueDate,
         public readonly string $deadlineType,
-        public readonly string $parentRecurringTaskId,
         public readonly bool $completed,
         public readonly User $creator,
-        public readonly Project $project,
         public readonly Status $status,
         public readonly string $priority,
         public readonly array $labels,
         public readonly array $assignees,
-        public readonly string $scheduledStart,
-        public readonly string $scheduledEnd,
-        public readonly bool $schedulingIssue
+        public readonly bool $schedulingIssue,
+        public readonly ?string $parentRecurringTaskId = null,
+        public readonly ?string $scheduledStart = null,
+        public readonly ?string $scheduledEnd = null,
+        public readonly ?string $description = null,
+        public readonly ?Project $project = null,
     ) {
         //..
     }
@@ -39,20 +39,20 @@ final class Task
             Workspace::from($attributes['workspace']),
             $attributes['id'],
             $attributes['name'],
-            $attributes['description'],
             $attributes['dueDate'],
             $attributes['deadlineType'],
-            $attributes['parentRecurringTaskId'],
             $attributes['completed'],
             User::from($attributes['creator']),
-            Project::from($attributes['project']),
             Status::from($attributes['status']),
             $attributes['priority'],
             $labels,
             $assignees,
+            $attributes['schedulingIssue'],
+            $attributes['parentRecurringTaskId'],
             $attributes['scheduledStart'],
             $attributes['scheduledEnd'],
-            $attributes['schedulingIssue'],
+            $attributes['description'],
+            isset($attributes['project']) ? Project::from($attributes['project']) : null,
         );
     }
 
@@ -61,6 +61,8 @@ final class Task
      */
     public function toArray(): array
     {
+        $project = $this->project?->toArray();
+
         return [
             'duration' => $this->duration,
             'workspace' => $this->workspace->toArray(),
@@ -72,7 +74,7 @@ final class Task
             'parentRecurringTaskId' => $this->parentRecurringTaskId,
             'completed' => $this->completed,
             'creator' => $this->creator->toArray(),
-            'project' => $this->project->toArray(),
+            'project' => $project ?: null,
             'status' => $this->status->toArray(),
             'priority' => $this->priority,
             'labels' => array_map(fn (Label $label): array => $label->toArray(), $this->labels),

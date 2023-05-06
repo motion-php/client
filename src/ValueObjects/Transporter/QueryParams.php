@@ -28,7 +28,7 @@ final class QueryParams
     {
         return new self([
             ...$this->params,
-            array_merge($this->params, $params),
+            ...$params,
         ]);
     }
 

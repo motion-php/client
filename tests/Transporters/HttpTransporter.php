@@ -58,7 +58,7 @@ test('request object with query params', function () {
         ->withArgs(function (GuzzleHttp\Psr7\Request $request) {
             expect($request->getMethod())->toBe('GET');
             expect($request->getUri()->getPath())->toBe('/users');
-            expect($request->getUri()->getQuery())->toBe('0%5BworkspaceId%5D=foo');
+            expect($request->getUri()->getQuery())->toBe('workspaceId=foo');
 
             return true;
         })->andReturn($response);

@@ -13,16 +13,16 @@ final class Tasks implements TasksContract
 {
     use Transportable;
 
-    public function create(): object
+    public function create()
     {
-        $payload = Payload::create('');
+        $payload = Payload::create('tasks');
 
         return $this->transporter->requestObject($payload);
     }
 
     public function list(string $workspaceId): ListResponse
     {
-        $payload = Payload::list('tasks', ['workspace' => $workspaceId]);
+        $payload = Payload::list('tasks', ['workspaceId' => $workspaceId]);
 
         $result = $this->transporter->requestObject($payload);
 

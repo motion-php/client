@@ -11,8 +11,8 @@ final class Project implements CreateFromArrayContract
     public function __construct(
         public readonly string $id,
         public readonly string $name,
-        public readonly string $description,
-        public readonly string $workspaceId
+        public readonly string $workspaceId,
+        public readonly ?string $description = null,
     ) {
         //..
     }
@@ -22,8 +22,8 @@ final class Project implements CreateFromArrayContract
         return new self(
             id: $attributes['id'],
             name: $attributes['name'],
-            description: $attributes['description'],
             workspaceId: $attributes['workspaceId'],
+            description: $attributes['description'],
         );
     }
 
