@@ -46,3 +46,13 @@ function listWorkspacesResource()
         'meta' => metaOne(),
     ];
 }
+
+function listStatusesResource()
+{
+    return [
+        'statuses' => [
+            statusResolved(),
+            statusInProgress(),
+        ],
+    ];
+}

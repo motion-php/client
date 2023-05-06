@@ -9,4 +9,6 @@ use Motion\Responses\Workspaces\ListResponse;
 interface WorkspacesContract
 {
     public function list(?array $parameters = []): ListResponse;
+
+    public function statuses(?array $parameters = []);
 }

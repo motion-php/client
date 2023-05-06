@@ -7,6 +7,7 @@ namespace Motion\Resources;
 use Motion\Contracts\Resources\WorkspacesContract;
 use Motion\Resources\Concerns\Transportable;
 use Motion\Responses\Workspaces\ListResponse;
+use Motion\Responses\Workspaces\ListStatusesResponse;
 use Motion\ValueObjects\Transporter\Payload;
 
 final class Workspaces implements WorkspacesContract
@@ -20,5 +21,14 @@ final class Workspaces implements WorkspacesContract
         $result = $this->transporter->requestObject($payload);
 
         return ListResponse::from($result);
+    }
+
+    public function statuses(?array $parameters = []): ListStatusesResponse
+    {
+        $payload = Payload::list('statuses', $parameters);
+
+        $result = $this->transporter->requestObject($payload);
+
+        return ListStatusesResponse::from($result);
     }
 }

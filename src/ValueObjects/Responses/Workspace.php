@@ -11,18 +11,18 @@ final class Workspace implements CreateFromArrayContract
     public function __construct(
         public readonly string $id,
         public readonly string $name,
-        public readonly string $teamId,
         public readonly array $statuses,
         public readonly array $labels,
         public readonly string $type,
+        public readonly ?string $teamId = null,
     ) {
         //..
     }
 
     public static function from(array $attributes): self
     {
-        $statuses = array_map(fn (array $status): \Motion\ValueObjects\Responses\Status => Status::from($status), $attributes['statuses']);
-        $labels = array_map(fn (array $label): \Motion\ValueObjects\Responses\Label => Label::from($label), $attributes['labels']);
+        $statuses = array_map(fn (array $status): Status => Status::from($status), $attributes['statuses']);
+        $labels = array_map(fn (array $label): Label => Label::from($label), $attributes['labels']);
 
         return new self(
             id: $attributes['id'],
