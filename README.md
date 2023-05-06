@@ -1,5 +1,13 @@
 **Motion PHP** is a community maintained PHP API Client for interacting with [Motion API](https://docs.usemotion.com/docs/motion-rest-api/44e37c461ba67-motion-rest-api). Motion is an excellent calendar and project management application which uses AI to reschedule your time effectively. If you haven't heard of it yet, check it out at [usemotion.com](https://www.usemotion.com/).
 
+<p align="center">
+  <img src="https://raw.githubusercontent.com/motion-php/assets/main/img/example.png" width="600" alt="Motion PHP Example">
+  <a href="https://github.com/motion-php/client/actions"><img alt="GitHub Workflow Status (main)" src="https://img.shields.io/github/actions/workflow/status/motion-php/client/tests.yml?branch=main&style=for-the-badge"></a>
+  <a href="https://packagist.org/packages/motion-php/client"><img alt="Packagist Version (including pre-releases)" src="https://img.shields.io/packagist/v/motion-php/client?include_prereleases&style=for-the-badge"></a>
+  <a href="https://packagist.org/packages/motion-php/client"><img alt="Packagist Downloads" src="https://img.shields.io/packagist/dm/motion-php/client?style=for-the-badge"></a>
+  <a href="https://packagist.org/packages/motion-php/client"><img alt="GitHub" src="https://img.shields.io/github/license/motion-php/client?style=for-the-badge"></a>
+</p>
+
 ## Table of Contents
 - [Getting Started](#getting-started)
 - [Usage](#usage)
