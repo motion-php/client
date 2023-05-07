@@ -31,8 +31,9 @@ final class Task
 
     public static function from(array $attributes): self
     {
-        $labels = array_map(fn (array $result): Label => Label::from($result), $attributes['labels']);
-        $assignees = array_map(fn (array $result): User => User::from($result), $attributes['assignees']);
+        $labels = array_map(fn (array $label): Label => Label::from($label), $attributes['labels']);
+
+        $assignees = array_map(fn (array $attributes): User => User::from($attributes), $attributes['assignees']);
 
         return new self(
             $attributes['duration'],

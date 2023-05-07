@@ -71,7 +71,35 @@ function taskTwo()
     ];
 }
 
-function realData()
+function taskData()
 {
+    return [
 
+        'name' => 'Task name',
+        'dueDate' => '2020-01-01',
+        'duration' => 60,
+        'status' => 'COMPLETED',
+        'autoScheduled' => [
+            'startDate' => '2020-01-01',
+            'deadlineType' => 'HARD',
+            'schedule' => 'Work Hours',
+        ],
+        'workspaceId' => '123',
+        'projectId' => '123',
+        'description' => 'Task description',
+        'priority' => 'HIGH',
+        'labels' => [
+            ['name' => 'label1'],
+            ['name' => 'label2'],
+        ],
+        'subtasks' => [
+            'name' => 'Subtask name',
+            'completed' => true,
+        ],
+        'assigneeId' => '123',
+        'assignees' => [
+            userOne(),
+            userTwo(),
+        ],
+    ];
 }

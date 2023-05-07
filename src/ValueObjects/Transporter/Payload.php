@@ -27,7 +27,7 @@ final class Payload
         //..
     }
 
-    public static function create(string $resource, array $parameters): self
+    public static function create(string $resource, array $parameters = []): self
     {
         $contentType = ContentType::JSON;
         $method = Method::POST;
