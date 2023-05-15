@@ -39,8 +39,11 @@ final class HttpTransporter implements TransporterContract
         }
 
         $contents = $response->getBody()->getContents();
-
-        if ($response->getHeader('Content-Type')[0] === ContentType::TEXT->value.'; charset=UTF-8') {
+        $contentType = $response->getHeader('Content-Type')[0];
+        if ($contentType === ContentType::TEXT->value) {
+            return $contents;
+        }
+        if ($contentType === ContentType::TEXT_HTML->value) {
             return $contents;
         }
 

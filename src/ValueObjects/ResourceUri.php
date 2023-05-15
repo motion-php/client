@@ -26,6 +26,21 @@ final class ResourceUri implements StringableContract
         return new self($resource);
     }
 
+    public static function update(string $resource, string $id): self
+    {
+        return new self("{$resource}/{$id}");
+    }
+
+    public static function retrieve(string $resource, string $id): self
+    {
+        return new self("{$resource}/{$id}");
+    }
+
+    public static function delete(string $resource, string $id): self
+    {
+        return new self("{$resource}/{$id}");
+    }
+
     public function toString(): string
     {
         return $this->resource;

@@ -45,6 +45,33 @@ final class Payload
         return new self($contentType, $method, $uri, $parameters);
     }
 
+    public static function update(string $resource, string $id, array $parameters = []): self
+    {
+        $contentType = ContentType::JSON;
+        $method = Method::PATCH;
+        $uri = ResourceUri::update($resource, $id);
+
+        return new self($contentType, $method, $uri, $parameters);
+    }
+
+    public static function retrieve(string $resource, string $id): self
+    {
+        $contentType = ContentType::JSON;
+        $method = Method::GET;
+        $uri = ResourceUri::retrieve($resource, $id);
+
+        return new self($contentType, $method, $uri);
+    }
+
+    public static function delete(string $resource, string $id): self
+    {
+        $contentType = ContentType::JSON;
+        $method = Method::DELETE;
+        $uri = ResourceUri::delete($resource, $id);
+
+        return new self($contentType, $method, $uri);
+    }
+
     public function toRequest(BaseUri $baseUri, Headers $headers, QueryParams $queryParams): RequestInterface
     {
         $psr17Factory = new Psr17Factory();

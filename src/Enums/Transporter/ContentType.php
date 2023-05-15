@@ -11,4 +11,6 @@ enum ContentType: string
 {
     case JSON = 'application/json';
     case TEXT = 'text/plain';
+
+    case TEXT_HTML = 'text/html';
 }

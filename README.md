@@ -14,6 +14,8 @@
 - [Getting Started](#getting-started)
 - [Usage](#usage)
   - [Users Resource](#users-resource)
+  - [Workspaces Resource](#workspaces-resource)
+  - [Tasks Resource](#tasks-resource)
   
 
 
@@ -75,6 +77,134 @@ $client = Motion::factory()
 
 ## Usage
 
+### `Tasks` resource
+
+#### `update` a task
+```php
+$response = $client->tasks()->update('IF0lK9JcsdaxeLkDZ0nMG', [
+    'name' => 'My Task',
+    'description' => 'My Task Description',
+    'status' => 'Completed',
+]);
+
+$task = $response->task; // Task object
+
+$task->id; // IF0lK9JcsdaxeLkDZ0nMG
+$task->name; // My Task
+$task->description; // My Task Description
+$task->project; // Project object
+
+$task->toArray(); // ['id' => 'IF0lK9JcsdaxeLkDZ0nMG', ...]
+```
+
+#### `create` a task
+
+```php
+$response = $client->tasks()->create([
+    'name' => 'My Task',
+    'description' => 'My Task Description',
+    'status' => 'Completed',
+]);
+
+$task = $response->task; // Task object
+
+$task->id; // IF0lK9JcsdaxeLkDZ0nMG
+$task->name; // My Task
+$task->description; // My Task Description
+$task->project; // Project object
+
+$task->toArray(); // ['id' => 'IF0lK9JcsdaxeLkDZ0nMG', ...]
+```
+
+#### `delete` a task
+
+```php
+$response = $client->tasks()->delete('IF0lK9JcsdaxeLkDZ0nMG');
+```
+
+#### `retrieve` a task
+
+```php
+$response = $client->tasks()->retrieve('IF0lK9JcsdaxeLkDZ0nMG');
+
+$task = $response->task; // Task object
+
+$task->id; // IF0lK9JcsdaxeLkDZ0nMG
+$task->name; // My Task
+$task->description; // My Task Description
+$task->project; // Project object
+
+$task->toArray(); // ['id' => 'IF0lK9JcsdaxeLkDZ0nMG', ...]
+```
+
+#### `move` task between workspaces
+```php
+$response = $client->tasks()->move('IF0lK9JcsdaxeLkDZ0nMG', 'IF0lK9JcsdaxeLkDZ0nMG');
+
+$task = $response->task; // Task object
+
+$task->id; // IF0lK9JcsdaxeLkDZ0nMG
+$task->name; // My Task
+$task->description; // My Task Description
+$task->project; // Project object
+
+$task->toArray(); // ['id' => 'IF0lK9JcsdaxeLkDZ0nMG', ...]
+```
+
+### `Recurring Tasks` resource
+#### `create` a recurring task
+
+```php
+$response = $client->recurringTasks()->create([
+    'name' => 'My Task',
+    'description' => 'My Task Description',
+    'status' => 'Completed',
+]);
+
+$task = $response->task; // Task object
+
+$task->id; // IF0lK9JcsdaxeLkDZ0nMG
+$task->name; // My Task
+```
+
+### `Workspaces` resource
+
+#### `list`
+List workspaces
+
+```php
+$response = $client->workspaces()->list();
+
+$response->workspaces; // array of Workspace objects
+
+foreach ($response->workspaces as $workspace) {
+    $workspace->id; // IF0lK9JcsdaxeLkDZ0nMG
+    $workspace->name; // My Workspace
+    $workspace->teamId; // 2f0lK9JcsdaxeLkDZ0nMG
+    $workspace->statuses; // array of Status objects
+    $workspace->labels; // array of Label objects
+    $workspace->type; // INDIVIDUAL
+}
+
+$response->toArray(); // ['workspaces' => [...]]
+```
+
+#### `statuses`
+List statuses for a workspace
+```php
+$response = $client->workspaces()->statuses('IF0lK9JcsdaxeLkDZ0nMG');
+
+$response->statuses; // array of Status objects
+
+foreach ($response->statuses as $status) {
+    $status->name; // In Progress
+    $status->isDefaultStatus // true
+    $status->isResolvedStatus // false
+}
+
+$response->toArray(); // ['statuses' => [...]]
+```
+
 ### `Users` Resource
 
 #### `list`
@@ -82,7 +212,9 @@ $client = Motion::factory()
 Lists the currently available users. Can be limited by `teamId` or `workspaceId`.
 
 ```php
-$response = $client->users()->list();
+$response = $client->users()->list([
+    'workspaceId' => 'IF0lK9JcsdaxeLkDZ0nMG'
+]);
 
 $response->users; // array of User objects
 
