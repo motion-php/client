@@ -6,8 +6,12 @@ namespace Motion\Responses\Tasks;
 
 use Motion\Contracts\ResponseContract;
 use Motion\Responses\Concerns\ArrayAccessible;
+use Motion\ValueObjects\Responses\Label;
 use Motion\ValueObjects\Responses\Task;
 
+/**
+ * @implements ResponseContract<array{task: array{duration: string, workspace: array{id: string, name: string, teamId: string, statuses: array[Status], labels: array[Label], type: string}, id: string, name: string, description: string, dueDate: string, deadlineType: string, parentRecurringTaskId: string, completed: bool, creator: array{id: string, name: string, email: string}, project: array{id: string, name: string, description: string, workspaceId: string}, status: array{name: string, isDefaultStatus: bool, isResolvedStatus: bool}, priority: string, labels: array<int|string, array{name: string}>, assignees: array<int|string, array{id: string, name: string, email: string}>, scheduledStart: string, scheduledEnd: string, schedulingIssue: bool}}>
+ */
 final class CreateResponse implements ResponseContract
 {
     use ArrayAccessible;

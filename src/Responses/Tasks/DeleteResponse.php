@@ -10,11 +10,27 @@ final class DeleteResponse implements \Motion\Contracts\ResponseContract
 {
     use ArrayAccessible;
 
+    public function __construct(public readonly string $id)
+    {
+        //..
+    }
+
+    public static function from(array $attributes): self
+    {
+        return new self(
+            id: $attributes['id'],
+        );
+    }
+
     /**
-     * @inheritDoc
+     * {@inheritDoc}
+     *
+     * @return array{id: string}
      */
     public function toArray(): array
     {
-
+        return [
+            'id' => $this->id,
+        ];
     }
 }

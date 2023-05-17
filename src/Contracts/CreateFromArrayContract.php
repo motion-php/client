@@ -7,7 +7,7 @@ namespace Motion\Contracts;
 interface CreateFromArrayContract
 {
     /**
-     * @param array< $attributes
+     * @param  array<string, mixed>  $attributes
      */
     public static function from(array $attributes): self;
 }

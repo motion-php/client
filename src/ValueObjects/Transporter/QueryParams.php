@@ -6,6 +6,9 @@ namespace Motion\ValueObjects\Transporter;
 
 final class QueryParams
 {
+    /**
+     * @param  array<string, mixed>  $params
+     */
     public function __construct(private readonly array $params)
     {
         //..
@@ -24,6 +27,9 @@ final class QueryParams
         ]);
     }
 
+    /**
+     * @param  array<string, mixed>  $params
+     */
     public function withParams(array $params): self
     {
         return new self([
@@ -32,6 +38,9 @@ final class QueryParams
         ]);
     }
 
+    /**
+     * @return array<string, mixed>
+     */
     public function toArray(): array
     {
         return $this->params;

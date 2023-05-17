@@ -17,6 +17,8 @@ final class Payload
 {
     /**
      * Creates a new Payload request value object.
+     *
+     * @param  array<string, mixed>  $parameters
      */
     public function __construct(
         private readonly ContentType $contentType,
@@ -27,6 +29,9 @@ final class Payload
         //..
     }
 
+    /**
+     * @param  array<string, mixed>  $parameters
+     */
     public static function create(string $resource, array $parameters = []): self
     {
         $contentType = ContentType::JSON;
@@ -36,6 +41,9 @@ final class Payload
         return new self($contentType, $method, $uri, $parameters);
     }
 
+    /**
+     * @param  array<string, mixed>  $parameters
+     */
     public static function list(string $resource, array $parameters = []): self
     {
         $contentType = ContentType::JSON;
@@ -45,6 +53,9 @@ final class Payload
         return new self($contentType, $method, $uri, $parameters);
     }
 
+    /**
+     * @param  array<string, mixed>  $parameters
+     */
     public static function update(string $resource, string $id, array $parameters = []): self
     {
         $contentType = ContentType::JSON;

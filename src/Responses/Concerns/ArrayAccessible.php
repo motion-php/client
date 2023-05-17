@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace Motion\Responses\Concerns;
 
+use BadMethodCallException;
+
 trait ArrayAccessible
 {
     public function offsetExists($offset): bool

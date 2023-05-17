@@ -5,14 +5,17 @@ declare(strict_types=1);
 namespace Motion\Resources;
 
 use Motion\Contracts\Resources\TasksContract;
-use Motion\Contracts\Resources\UpdateResponse;
 use Motion\Resources\Concerns\Transportable;
 use Motion\Responses\Tasks\CreateResponse;
 use Motion\Responses\Tasks\DeleteResponse;
 use Motion\Responses\Tasks\ListResponse;
 use Motion\Responses\Tasks\RetrieveResponse;
+use Motion\Responses\Tasks\UpdateResponse;
 use Motion\ValueObjects\Transporter\Payload;
 
+/**
+ * @internal
+ */
 final class Tasks implements TasksContract
 {
     use Transportable;

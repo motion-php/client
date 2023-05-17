@@ -23,7 +23,7 @@ final class HttpTransporter implements TransporterContract
         private readonly ClientInterface $client,
         private readonly BaseUri $baseUri,
         private readonly Headers $headers,
-        private readonly QueryParams $queryParams,
+        private readonly QueryParams $queryParams
     ) {
         //..
     }
@@ -62,7 +62,7 @@ final class HttpTransporter implements TransporterContract
 
     public function requestContent(Payload $payload): string
     {
-        $request = $payload->toRequest($this->baseUri, $this->headers);
+        $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams);
 
         try {
             $response = $this->client->sendRequest($request);

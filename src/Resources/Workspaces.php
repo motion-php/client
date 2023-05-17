@@ -14,6 +14,9 @@ final class Workspaces implements WorkspacesContract
 {
     use Transportable;
 
+    /**
+     * @param  array<string, mixed>|null  $parameters
+     */
     public function list(?array $parameters = []): ListResponse
     {
         $payload = Payload::list('workspaces', $parameters);
@@ -23,6 +26,9 @@ final class Workspaces implements WorkspacesContract
         return ListResponse::from($result);
     }
 
+    /**
+     * @param  array<string, mixed>|null  $parameters
+     */
     public function statuses(?array $parameters = []): ListStatusesResponse
     {
         $payload = Payload::list('statuses', $parameters);

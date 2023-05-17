@@ -4,8 +4,6 @@ declare(strict_types=1);
 
 namespace Motion;
 
-use Closure;
-use Http\Discovery\Psr18Client;
 use Http\Discovery\Psr18ClientDiscovery;
 use Motion\Contracts\TransporterContract;
 use Motion\Transporters\HttpTransporter;
@@ -14,27 +12,42 @@ use Motion\ValueObjects\Transporter\BaseUri;
 use Motion\ValueObjects\Transporter\Headers;
 use Motion\ValueObjects\Transporter\QueryParams;
 use Psr\Http\Client\ClientInterface;
-use Psr\Http\Message\RequestInterface;
-use Psr\Http\Message\ResponseInterface;
 
 final class Factory
 {
+    /**
+     * The API key to use for authentication.
+     */
     private ?string $apiKey = null;
 
+    /**
+     * The transporter to use for requests.
+     */
     private ?TransporterContract $transporter = null;
 
+    /**
+     * The HTTP client to use for requests.
+     */
     private ?ClientInterface $httpClient = null;
 
+    /**
+     * The base URI to use for requests.
+     */
     private ?string $baseUri = null;
 
     /**
+     * The HTTP headers to use for requests.
+     *
      * @var array<string, string>
      */
     private array $headers = [];
 
+    /**
+     * The query parameters to use for requests.
+     *
+     * @var array<string, string|int>
+     */
     private array $queryParams = [];
-
-    private ?\Closure $streamHandler = null;
 
     /**
      * Sets the API key to use for authentication.
@@ -66,13 +79,19 @@ final class Factory
         return $this;
     }
 
-    public function withQueryParam(string $name, string $value)
+    /**
+     * Sets query parameter to use for requests.
+     */
+    public function withQueryParam(string $name, string $value): self
     {
         $this->queryParams[$name] = $value;
 
         return $this;
     }
 
+    /**
+     * Sets the transporter to use for requests.
+     */
     public function withTransporter(TransporterContract $transporter): self
     {
         $this->transporter = $transporter;
@@ -80,16 +99,12 @@ final class Factory
         return $this;
     }
 
+    /**
+     * Sets the HTTP client to use for requests.
+     */
     public function withHttpClient(ClientInterface $httpClient): self
     {
         $this->httpClient = $httpClient;
-
-        return $this;
-    }
-
-    public function withStreamHandler(Closure $streamHandler)
-    {
-        $this->streamHandler = $streamHandler;
 
         return $this;
     }
@@ -115,31 +130,10 @@ final class Factory
             $queryParams = $queryParams->withParam($name, $value);
         }
 
-        $sendAsync = $this->makeStreamHandler($client);
-
         if (! $this->transporter instanceof TransporterContract) {
-            $this->transporter = new HttpTransporter($client, $baseUri, $headers, $queryParams, $sendAsync);
+            $this->transporter = new HttpTransporter($client, $baseUri, $headers, $queryParams);
         }
 
         return new Client($this->transporter);
-    }
-
-    private function makeStreamHandler(ClientInterface $client): Closure
-    {
-        if (! is_null($this->streamHandler)) {
-            return $this->streamHandler;
-        }
-
-        if ($client instanceof \GuzzleHttp\Client) {
-            return fn (RequestInterface $request): ResponseInterface => $client->send($request, ['stream' => true]);
-        }
-
-        if ($client instanceof Psr18Client) {
-            return fn (RequestInterface $request): ResponseInterface => $client->sendRequest($request);
-        }
-
-        return function (RequestInterface $_): never {
-            throw new \RuntimeException('To use stream requests you must provide an stream handler closure via the Motion factory.');
-        };
     }
 }
