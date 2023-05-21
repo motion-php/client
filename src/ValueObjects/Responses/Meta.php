@@ -8,7 +8,7 @@ final class Meta
 {
     public function __construct(
         public readonly string $nextCursor,
-        public readonly int|string $pageSize
+        public readonly int|string|float $pageSize
     ) {
         //..
     }

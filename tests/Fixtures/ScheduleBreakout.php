@@ -17,11 +17,11 @@ function scheduleBreakoutComplex()
 {
     return [
         'monday' => scheduleMondayMultiple(),
-        'tuesday' => scheduleTuesday(),
+        'tuesday' => [scheduleTuesday()],
         'wednesday' => scheduleWednesdayMultiple(),
-        'thursday' => scheduleThursday(),
-        'friday' => scheduleFriday(),
-        'saturday' => scheduleSaturday(),
-        'sunday' => scheduleSunday(),
+        'thursday' => [scheduleThursday()],
+        'friday' => [scheduleFriday()],
+        'saturday' => [scheduleSaturday()],
+        'sunday' => [scheduleSunday()],
     ];
 }

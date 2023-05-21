@@ -2,6 +2,7 @@
 
 use Motion\Responses\Tasks\CreateResponse;
 use Motion\Responses\Tasks\ListResponse;
+use Motion\Responses\Tasks\MoveWorkspaceResponse;
 use Motion\ValueObjects\Responses\Meta;
 use Motion\ValueObjects\Responses\Project;
 use Motion\ValueObjects\Responses\Task;
@@ -51,14 +52,14 @@ test('create', function () {
 });
 
 test('move workspace', function () {
-    $response = taskTwo();
+    $data = taskTwo();
 
-    $client = mockMotionClient('POST', 'tasks/2/move-workspace', [], $response);
+    $client = mockMotionClient('POST', 'move', $data, $data);
 
     $result = $client->tasks()->moveWorkspace('2', []);
 
     expect($result)
-        ->toBeInstanceOf(\Motion\Responses\Tasks\MoveWorkspaceResponse::class);
+        ->toBeInstanceOf(MoveWorkspaceResponse::class);
 
     $task = $result->task;
 

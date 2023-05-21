@@ -45,3 +45,11 @@ it('may use a custom http client', function () {
 
     expect($client)->toBeInstanceOf(Client::class);
 });
+
+it('uses mock mode', function () {
+    $client = Motion::factory()
+        ->useMockMode(true)
+        ->make();
+
+    expect($client)->toBeInstanceOf(Client::class);
+});

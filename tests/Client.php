@@ -20,3 +20,9 @@ it('has schedules', function () {
 
     expect($motion->schedules())->toBeInstanceOf(Motion\Resources\Schedules::class);
 });
+
+it('has comments', function () {
+    $motion = Motion::client('foo');
+
+    expect($motion->comments())->toBeInstanceOf(Motion\Resources\Comments::class);
+});

@@ -9,6 +9,7 @@ use Motion\Resources\Concerns\Transportable;
 use Motion\Responses\Tasks\CreateResponse;
 use Motion\Responses\Tasks\DeleteResponse;
 use Motion\Responses\Tasks\ListResponse;
+use Motion\Responses\Tasks\MoveWorkspaceResponse;
 use Motion\Responses\Tasks\RetrieveResponse;
 use Motion\Responses\Tasks\UpdateResponse;
 use Motion\ValueObjects\Transporter\Payload;
@@ -63,5 +64,14 @@ final class Tasks implements TasksContract
         $result = $this->transporter->requestObject($payload);
 
         return DeleteResponse::from($result);
+    }
+
+    public function moveWorkspace(string $taskId, array $parameters): MoveWorkspaceResponse
+    {
+        $payload = Payload::move('tasks', $taskId, $parameters);
+
+        $result = $this->transporter->requestObject($payload);
+
+        return MoveWorkspaceResponse::from($result);
     }
 }

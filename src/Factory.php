@@ -49,6 +49,8 @@ final class Factory
      */
     private array $queryParams = [];
 
+    private bool $mockMode = false;
+
     /**
      * Sets the API key to use for authentication.
      */
@@ -109,8 +111,20 @@ final class Factory
         return $this;
     }
 
+    public function useMockMode(bool $flag, bool $dynamic = true): self
+    {
+        $this->mockMode = $flag;
+
+        return $this;
+    }
+
     public function make(): Client
     {
+        if ($this->mockMode) {
+            $this->baseUri = 'https://stoplight.io/mocks/motion/motion-rest-api/33447';
+            $this->withHttpHeader('Prefer', 'dynamic=true');
+        }
+
         $headers = Headers::create();
         $baseUri = BaseUri::from($this->baseUri ?: 'api.usemotion.com/v1');
         $queryParams = QueryParams::create();

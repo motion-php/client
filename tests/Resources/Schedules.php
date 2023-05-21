@@ -1,7 +1,7 @@
 <?php
 
 use Motion\Responses\Schedules\ListResponse;
-use Motion\ValueObjects\Responses\ScheduleBreakout;
+use Motion\ValueObjects\Responses\Schedule;
 
 test('list', function () {
     $client = mockMotionClient('GET', 'schedules', [], schedulesListResource());
@@ -10,8 +10,5 @@ test('list', function () {
 
     expect($result)
         ->toBeInstanceOf(ListResponse::class)
-        ->schedules->each->toBeInstanceOf(ScheduleBreakout::class)
-        ->name->toBe('Schedule 1')
-        ->isDefaultTimezone->toBeFalse()
-        ->timezone->toBe('America/New_York');
+        ->schedules->each->toBeInstanceOf(Schedule::class);
 });

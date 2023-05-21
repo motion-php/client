@@ -23,7 +23,7 @@ function complexSchedule()
 function schedulesListResource()
 {
     return [
-        simpleSchedule(),
+        complexSchedule(),
         complexSchedule(),
     ];
 }

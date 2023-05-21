@@ -41,6 +41,11 @@ final class ResourceUri implements StringableContract
         return new self("{$resource}/{$id}");
     }
 
+    public static function move(string $string, string $taskId): self
+    {
+        return new self("{$string}/{$taskId}/move");
+    }
+
     public function toString(): string
     {
         return $this->resource;

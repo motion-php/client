@@ -5,10 +5,12 @@ declare(strict_types=1);
 namespace Motion;
 
 use Motion\Contracts\ClientContract;
+use Motion\Contracts\Resources\CommentsContract;
 use Motion\Contracts\Resources\TasksContract;
 use Motion\Contracts\Resources\UsersContract;
 use Motion\Contracts\Resources\WorkspacesContract;
 use Motion\Contracts\TransporterContract;
+use Motion\Resources\Comments;
 use Motion\Resources\Schedules;
 use Motion\Resources\Tasks;
 use Motion\Resources\Users;
@@ -41,5 +43,10 @@ final class Client implements ClientContract
     public function schedules(): Schedules
     {
         return new Schedules($this->transporter);
+    }
+
+    public function comments(): CommentsContract
+    {
+        return new Comments($this->transporter);
     }
 }

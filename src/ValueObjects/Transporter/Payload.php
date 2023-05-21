@@ -83,9 +83,22 @@ final class Payload
         return new self($contentType, $method, $uri);
     }
 
+    public static function move(string $string, string $taskId, array $array): self
+    {
+        $contentType = ContentType::JSON;
+        $method = Method::PATCH;
+        $uri = ResourceUri::move($string, $taskId);
+
+        return new self($contentType, $method, $uri, $array);
+    }
+
+    /**
+     * @throws \JsonException
+     */
     public function toRequest(BaseUri $baseUri, Headers $headers, QueryParams $queryParams): RequestInterface
     {
         $psr17Factory = new Psr17Factory();
+        $body = null;
 
         if ($this->method === Method::GET && $this->parameters !== []) {
             $queryParams = $queryParams->withParams($this->parameters);
@@ -96,9 +109,17 @@ final class Payload
             $uri .= '?'.http_build_query($queryParams->toArray());
         }
 
+        if ($this->method === Method::POST || $this->method === Method::PATCH) {
+            $body = $psr17Factory->createStream(json_encode($this->parameters, JSON_THROW_ON_ERROR));
+        }
+
         $headers = $headers->withContentType($this->contentType);
 
         $request = $psr17Factory->createRequest($this->method->value, $uri);
+
+        if ($body instanceof \Psr\Http\Message\StreamInterface) {
+            $request = $request->withBody($body);
+        }
 
         foreach ($headers->toArray() as $name => $value) {
             $request = $request->withHeader($name, $value);

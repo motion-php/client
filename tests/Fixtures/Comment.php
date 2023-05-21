@@ -10,3 +10,16 @@ function comment()
         'createdAt' => '2019-01-01T00:00:00+00:00',
     ];
 }
+
+function commentListResponse()
+{
+    return [
+        'comments' => [
+            comment(),
+            comment(),
+            comment(),
+            comment(),
+        ],
+        'meta' => metaOne(),
+    ];
+}
