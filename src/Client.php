@@ -9,6 +9,7 @@ use Motion\Contracts\Resources\TasksContract;
 use Motion\Contracts\Resources\UsersContract;
 use Motion\Contracts\Resources\WorkspacesContract;
 use Motion\Contracts\TransporterContract;
+use Motion\Resources\Schedules;
 use Motion\Resources\Tasks;
 use Motion\Resources\Users;
 use Motion\Resources\Workspaces;
@@ -35,5 +36,10 @@ final class Client implements ClientContract
     public function workspaces(): WorkspacesContract
     {
         return new Workspaces($this->transporter);
+    }
+
+    public function schedules(): Schedules
+    {
+        return new Schedules($this->transporter);
     }
 }

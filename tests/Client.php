@@ -14,3 +14,9 @@ it('has workspaces', function () {
 
     expect($motion->workspaces())->toBeInstanceOf(Workspaces::class);
 });
+
+it('has schedules', function () {
+    $motion = Motion::client('foo');
+
+    expect($motion->schedules())->toBeInstanceOf(Motion\Resources\Schedules::class);
+});

@@ -12,24 +12,18 @@ final class Schedule implements CreateFromArrayContract
         public readonly string $name,
         public readonly bool $isDefaultTimezone,
         public readonly string $timezone,
-        public readonly array $schedule,
+        public readonly ScheduleBreakout $scheduleBreakout,
     ) {
         //..
     }
 
     public static function from(array $attributes): self
     {
-        // @todo: map schedules with multiple DailySchedules per day
-        $schedule = array_map(
-            fn (array $schedule): DailySchedule => DailySchedule::from($schedule),
-            $attributes['schedule'],
-        );
-
         return new self(
             name: $attributes['name'],
             isDefaultTimezone: $attributes['isDefaultTimezone'],
             timezone: $attributes['timezone'],
-            schedule: $schedule,
+            scheduleBreakout: ScheduleBreakout::from($attributes['schedule']),
         );
     }
 
@@ -42,7 +36,7 @@ final class Schedule implements CreateFromArrayContract
             'name' => $this->name,
             'isDefaultTimezone' => $this->isDefaultTimezone,
             'timezone' => $this->timezone,
-            'schedule' => array_map(fn (DailySchedule $schedule): array => $schedule->toArray(), $this->schedule),
+            'schedule' => $this->scheduleBreakout->toArray(),
         ];
     }
 }
