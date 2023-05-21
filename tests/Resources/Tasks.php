@@ -49,3 +49,33 @@ test('create', function () {
         ->priority->toBe('ASAP')
         ->labels->toBeArray()->toHaveCount(2);
 });
+
+test('move workspace', function () {
+    $response = taskTwo();
+
+    $client = mockMotionClient('POST', 'tasks/2/move-workspace', [], $response);
+
+    $result = $client->tasks()->moveWorkspace('2', []);
+
+    expect($result)
+        ->toBeInstanceOf(\Motion\Responses\Tasks\MoveWorkspaceResponse::class);
+
+    $task = $result->task;
+
+    expect($task)
+        ->toBeInstanceOf(Task::class)
+        ->duration->toBe('NONE')
+        ->workspace->toBeInstanceOf(Workspace::class)
+        ->id->toBe('2')
+        ->name->toBe('Task Two')
+        ->description->toBe('This is the second task')
+        ->dueDate->toBe('2019-08-24T14:15:22Z')
+        ->deadlineType->toBe('SOFT')
+        ->parentRecurringTaskId->toBe('1')
+        ->completed->toBeFalse()
+        ->creator->toBeInstanceOf(User::class)
+        ->project->toBeInstanceOf(Project::class)
+        ->status->toBeInstanceOf(\Motion\ValueObjects\Responses\Status::class)
+        ->priority->toBe('ASAP')
+        ->labels->toBeArray()->toHaveCount(2);
+});
