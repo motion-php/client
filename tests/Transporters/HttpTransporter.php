@@ -1,6 +1,8 @@
 <?php
 
+use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Response;
+use Motion\Exceptions\TransporterException;
 use Motion\Transporters\HttpTransporter;
 use Motion\ValueObjects\ApiKey;
 use Motion\ValueObjects\Transporter\BaseUri;
@@ -25,25 +27,25 @@ beforeEach(function () {
     );
 });
 
-//test('request object', function () {
-//    $payload = Payload::list('tasks');
-//
-//    $response = new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], json_encode([
-//        'qdwq',
-//    ]));
-//
-//    $this->client
-//        ->shouldReceive('sendRequest')
-//        ->once()
-//        ->withArgs(function (GuzzleHttp\Psr7\Request $request) {
-//            expect($request->getMethod())->toBe('GET');
-//            expect($request->getUri()->getPath())->toBe('/tasks');
-//
-//            return true;
-//        })->andReturn($response);
-//
-//    $this->http->requestObject($payload);
-//});
+test('request object', function () {
+    $payload = Payload::list('tasks');
+
+    $response = new Response(200, ['Content-Type' => 'application/json; charset=utf-8'], json_encode([
+        'qdwq',
+    ]));
+
+    $this->client
+        ->shouldReceive('sendRequest')
+        ->once()
+        ->withArgs(function (GuzzleHttp\Psr7\Request $request) {
+            expect($request->getMethod())->toBe('GET');
+            expect($request->getUri()->getPath())->toBe('/tasks');
+
+            return true;
+        })->andReturn($response);
+
+    $this->http->requestObject($payload);
+});
 
 test('request object with query params', function () {
     $payload = Payload::list('users', ['workspaceId' => 'foo']);
@@ -84,3 +86,16 @@ test('request object response', function () {
         'text' => 'foo',
     ]);
 });
+
+test('throws exceptions on client error', function () {
+    $payload = Payload::list('tasks');
+
+    $clientException = new ClientException('foo', Mockery::mock(RequestInterface::class), new Response(400));
+
+    $this->client
+        ->shouldReceive('sendRequest')
+        ->once()
+        ->andThrow($clientException);
+
+    $this->http->requestObject($payload);
+})->throws(TransporterException::class, 'foo');

@@ -11,3 +11,13 @@ test('from', function () {
         ->and($response->comments)->toBeArray()->each->toBeInstanceOf(Comment::class)
         ->and($response->meta)->toBeInstanceOf(Meta::class);
 });
+
+test('to array', function () {
+    $response = ListResponse::from(commentListResponse());
+
+    $response = $response->toArray();
+
+    expect($response)->toBeArray()
+        ->and($response['comments'])->toBeArray()->each->toBeArray()
+        ->and($response['meta'])->toBeArray();
+});

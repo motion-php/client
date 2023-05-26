@@ -36,6 +36,16 @@ it('may use a custom transporter', function () {
     expect($client)->toBeInstanceOf(Client::class);
 });
 
+it('may set query params', function () {
+    $transporter = Mockery::mock(TransporterContract::class);
+
+    $client = Motion::factory()
+        ->withQueryParam('foo', 'bar')
+        ->make();
+
+    expect($client)->toBeInstanceOf(Client::class);
+});
+
 it('may use a custom http client', function () {
     $client = Mockery::mock(ClientInterface::class);
 

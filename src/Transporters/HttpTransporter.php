@@ -59,29 +59,4 @@ final class HttpTransporter implements TransporterContract
 
         return $response;
     }
-
-    public function requestContent(Payload $payload): string
-    {
-        $request = $payload->toRequest($this->baseUri, $this->headers, $this->queryParams);
-
-        try {
-            $response = $this->client->sendRequest($request);
-        } catch (ClientExceptionInterface $clientException) {
-            throw new TransporterException($clientException);
-        }
-
-        $contents = $response->getBody()->getContents();
-
-        try {
-            $response = json_decode($contents, true, 512, JSON_THROW_ON_ERROR);
-
-            if (isset($response['error'])) {
-                throw new ErrorException($response['error']);
-            }
-        } catch (JsonException) {
-            //..
-        }
-
-        return $contents;
-    }
 }

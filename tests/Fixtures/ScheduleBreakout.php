@@ -3,13 +3,13 @@
 function scheduleBreakoutSimple()
 {
     return [
-        'monday' => scheduleMonday(),
-        'tuesday' => scheduleTuesday(),
-        'wednesday' => scheduleWednesday(),
-        'thursday' => scheduleThursday(),
-        'friday' => scheduleFriday(),
-        'saturday' => scheduleSaturday(),
-        'sunday' => scheduleSunday(),
+        'monday' => [scheduleMonday()],
+        'tuesday' => [scheduleTuesday()],
+        'wednesday' => [scheduleWednesday()],
+        'thursday' => [scheduleThursday()],
+        'friday' => [scheduleFriday()],
+        'saturday' => [scheduleSaturday()],
+        'sunday' => [scheduleSunday()],
     ];
 }
 

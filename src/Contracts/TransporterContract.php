@@ -22,11 +22,4 @@ interface TransporterContract
      * @throws ErrorException|UnserializableResponse|TransporterException
      */
     public function requestObject(Payload $payload): array|string;
-
-    /**
-     * Sends a content request to the API.
-     *
-     * @throws ErrorException|TransporterException
-     */
-    public function requestContent(Payload $payload): string;
 }

@@ -54,7 +54,7 @@ test('create', function () {
 test('move workspace', function () {
     $data = taskTwo();
 
-    $client = mockMotionClient('POST', 'move', $data, $data);
+    $client = mockMotionClient('POST', 'move', [], $data);
 
     $result = $client->tasks()->moveWorkspace('2', []);
 

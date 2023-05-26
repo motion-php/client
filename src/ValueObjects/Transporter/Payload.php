@@ -83,13 +83,13 @@ final class Payload
         return new self($contentType, $method, $uri);
     }
 
-    public static function move(string $string, string $taskId, array $array): self
+    public static function move(string $string, string $taskId, array $parameters = []): self
     {
         $contentType = ContentType::JSON;
         $method = Method::PATCH;
         $uri = ResourceUri::move($string, $taskId);
 
-        return new self($contentType, $method, $uri, $array);
+        return new self($contentType, $method, $uri, $parameters);
     }
 
     /**

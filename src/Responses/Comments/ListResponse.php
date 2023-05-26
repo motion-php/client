@@ -21,7 +21,7 @@ final class ListResponse implements ResponseContract
     public static function from(array $attributes): self
     {
         return new self(
-            comments: array_map(fn (array $comment): \Motion\ValueObjects\Responses\Comment => Comment::from($comment), $attributes['comments']),
+            comments: array_map(fn (array $comment): Comment => Comment::from($comment), $attributes['comments']),
             meta: Meta::from($attributes['meta'] ?? null),
         );
     }
@@ -32,7 +32,7 @@ final class ListResponse implements ResponseContract
     public function toArray(): array
     {
         return [
-            'comments' => array_map(fn (Comment $comment): array => $comment->toArray(), $this->comments),
+            'comments' => array_map(static fn (Comment $comment): array => $comment->toArray(), $this->comments),
             'meta' => $this->meta->toArray(),
         ];
     }
