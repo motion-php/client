@@ -26,3 +26,9 @@ it('has comments', function () {
 
     expect($motion->comments())->toBeInstanceOf(Motion\Resources\Comments::class);
 });
+
+it('has recurring tasks', function () {
+    $motion = Motion::client('foo');
+
+    expect($motion->recurringTasks())->toBeInstanceOf(Motion\Resources\RecurringTasks::class);
+});

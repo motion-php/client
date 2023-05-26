@@ -37,3 +37,13 @@ function recurringTaskTwo()
         ],
     ];
 }
+
+function recurringTasksListResource()
+{
+    return [
+        recurringTaskOne(),
+        recurringTaskTwo(),
+        recurringTaskOne(),
+        recurringTaskTwo(),
+    ];
+}
