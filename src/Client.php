@@ -6,12 +6,14 @@ namespace Motion;
 
 use Motion\Contracts\ClientContract;
 use Motion\Contracts\Resources\CommentsContract;
+use Motion\Contracts\Resources\ProjectsContract;
 use Motion\Contracts\Resources\RecurringTasksContract;
 use Motion\Contracts\Resources\TasksContract;
 use Motion\Contracts\Resources\UsersContract;
 use Motion\Contracts\Resources\WorkspacesContract;
 use Motion\Contracts\TransporterContract;
 use Motion\Resources\Comments;
+use Motion\Resources\Projects;
 use Motion\Resources\RecurringTasks;
 use Motion\Resources\Schedules;
 use Motion\Resources\Tasks;
@@ -55,5 +57,10 @@ final class Client implements ClientContract
     public function recurringTasks(): RecurringTasksContract
     {
         return new RecurringTasks($this->transporter);
+    }
+
+    public function projects(): ProjectsContract
+    {
+        return new Projects($this->transporter);
     }
 }

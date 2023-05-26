@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Motion\Contracts;
 
 use Motion\Contracts\Resources\CommentsContract;
+use Motion\Contracts\Resources\ProjectsContract;
 use Motion\Contracts\Resources\RecurringTasksContract;
 use Motion\Contracts\Resources\SchedulesContract;
 use Motion\Contracts\Resources\TasksContract;
@@ -27,4 +28,6 @@ interface ClientContract
     public function schedules(): SchedulesContract;
 
     public function recurringTasks(): RecurringTasksContract;
+
+    public function projects(): ProjectsContract;
 }

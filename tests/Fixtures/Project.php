@@ -19,3 +19,11 @@ function projectTwo()
         'workspaceId' => '1',
     ];
 }
+
+function projectsListResource()
+{
+    return [
+        projectOne(),
+        projectTwo(),
+    ];
+}

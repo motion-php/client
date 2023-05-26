@@ -32,3 +32,9 @@ it('has recurring tasks', function () {
 
     expect($motion->recurringTasks())->toBeInstanceOf(Motion\Resources\RecurringTasks::class);
 });
+
+it('has projects', function () {
+    $motion = Motion::client('foo');
+
+    expect($motion->projects())->toBeInstanceOf(Motion\Resources\Projects::class);
+});
